@@ -1,0 +1,12 @@
+{
+  "name": "mzfmt",
+  "version": "0.1.0",
+  "files": [
+    "mzfmt_bg.wasm",
+    "mzfmt.js",
+    "mzfmt.d.ts"
+  ],
+  "module": "mzfmt.js",
+  "types": "mzfmt.d.ts",
+  "sideEffects": false
+}
