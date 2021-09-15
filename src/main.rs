@@ -1,10 +1,13 @@
 use std::io::{self, Read};
 
+use clap::AppSettings;
 use structopt::StructOpt;
 
 use mzfmt::pretty_str;
 
+/// Reads SQL from stdin, formats at specified width, and outputs to stdout.
 #[derive(StructOpt)]
+#[structopt(settings = &[AppSettings::UnifiedHelpMessage], usage = "mzfmt [OPTIONS]")]
 struct Opt {
     /// Target output width
     #[structopt(short, long, default_value = "60")]
