@@ -1,5 +1,3 @@
-use wasm_bindgen::prelude::*;
-
 use pretty::*;
 use sql_parser::ast::display::AstDisplay;
 use sql_parser::{ast::*, parser::parse_statements};
@@ -19,24 +17,25 @@ pub fn to_doc(v: &Statement<Raw>) -> RcDoc {
 pub fn to_pretty(stmt: &Statement<Raw>, width: usize) -> String {
     let mut w = Vec::new();
     to_doc(stmt).render(width, &mut w).unwrap();
-    String::from_utf8(w).unwrap()
+    let mut s = String::from_utf8(w).unwrap();
+    s.push(';');
+    s
 }
 
-pub fn pretty_strs(str: &str, width: usize) -> Result<Vec<String>, JsValue> {
+pub fn pretty_strs(str: &str, width: usize) -> Result<Vec<String>, String> {
     let stmts = match parse_statements(str) {
         Ok(stmts) => stmts,
-        Err(err) => return Err(JsValue::from_str(&err.to_string())),
+        Err(err) => return Err(err.to_string()),
     };
     Ok(stmts.iter().map(|s| to_pretty(s, width)).collect())
 }
 
-#[wasm_bindgen]
-pub fn pretty_str(str: &str, width: usize) -> Result<String, JsValue> {
+pub fn pretty_str(str: &str, width: usize) -> Result<String, String> {
     Ok(pretty_strs(str, width)?.join("\n\n"))
 }
 
 fn doc_display<'a, T: Display>(v: &T) -> RcDoc<'a, ()> {
-    println!("UNKNOWN PRETTY TYPE {}, {}", std::any::type_name::<T>(), v);
+    //eprintln!("UNKNOWN PRETTY TYPE {}, {}", std::any::type_name::<T>(), v);
     RcDoc::text(format!("{}", v))
 }
 
