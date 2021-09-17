@@ -18,5 +18,5 @@ fn main() {
     let opt = Opt::from_args();
     let mut buffer = String::new();
     io::stdin().read_to_string(&mut buffer).unwrap();
-    println!("{}", pretty_str("select 1,2", opt.width).unwrap());
+    println!("{}", pretty_str(&buffer, opt.width).unwrap());
 }
