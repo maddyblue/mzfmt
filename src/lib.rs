@@ -366,8 +366,7 @@ fn doc_expr(v: &Expr<Raw>) -> RcDoc {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sqlparser::dialect::GenericDialect;
-    use sqlparser::parser::Parser;
+    use sql_parser::parser::parse_statements;
 
     #[test]
     fn pretty() {
@@ -381,17 +380,16 @@ mod tests {
 			"SELECT tab_111.col_1 FROM tab_1 AS tab_111 FULL JOIN tab_1 AS tab_112 ON (CAST(- 2474187877618617778 AS bigint) = CAST(2715953958593069068 AS bigint)) RIGHT JOIN tab_1 AS tab_113 ON (tab_113.col_1 > CAST('' AS text));",
 
 		];
-        let dialect = GenericDialect {};
 
         for stmt in stmts {
             println!("\n-------------\n");
-            let ast = &Parser::parse_sql(&dialect, stmt.to_string()).unwrap()[0];
+            let ast = parse_statements(stmt).unwrap().into_iter().next().unwrap();
             let mut n = 1;
             let mut last = "".to_string();
             loop {
-                let s = to_pretty(ast, n);
+                let s = to_pretty(&ast, n);
                 if s != last {
-                    println!("{}:\n{};\n", n, s);
+                    println!("{}:\n{}\n", n, s);
                     last = s;
                 }
                 n += 1;
