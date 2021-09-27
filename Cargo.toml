@@ -8,3 +8,7 @@ clap = { version = "2" }
 pretty = "0.10"
 sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", rev = "5b28af2b16e181ed4914ed7ace627ea24bfc97a9" }
 structopt = { version = "0.3", default-features = false }
+
+[dev-dependencies]
+datadriven = "0.6"
+sql = { git = "https://github.com/MaterializeInc/materialize.git", rev = "5b28af2b16e181ed4914ed7ace627ea24bfc97a9" }
