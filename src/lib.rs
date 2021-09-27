@@ -198,7 +198,7 @@ fn doc_cte(v: &Cte<Raw>) -> RcDoc {
     RcDoc::concat(vec![
         RcDoc::text(format!("{} AS", v.alias)),
         RcDoc::line(),
-        bracket("(", doc_display(&v.query), ")"),
+        bracket("(", doc_query(&v.query), ")"),
     ])
 }
 
