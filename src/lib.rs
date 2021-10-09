@@ -320,7 +320,7 @@ fn doc_select(v: &Select<Raw>) -> RcDoc {
         format!(
             "SELECT{}",
             if let Some(distinct) = &v.distinct {
-                format!(" {}", distinct.to_ast_string_stable())
+                format!(" {}", distinct.to_ast_string())
             } else {
                 "".into()
             }
@@ -390,11 +390,46 @@ fn doc_expr(v: &Expr<Raw>) -> RcDoc {
             .nest(TAB),
             ")",
         ),
-
         Expr::Nested(ast) => bracket("(", doc_expr(ast), ")"),
-        _ => doc_display(v),
+        Expr::Function(fun) => doc_function(fun),
+        Expr::Subquery(ast) => bracket("(", doc_query(ast), ")"),
+        Expr::Identifier(_) => doc_display_pass(v),
+        _ => {
+            eprintln!(
+                "UNKNOWN expr variant {:?}, {}",
+                std::mem::discriminant(v),
+                v
+            );
+            doc_display_pass(v)
+        }
     }
     .group()
+}
+
+fn doc_function(v: &Function<Raw>) -> RcDoc {
+    if v.filter.is_some() || v.over.is_some() {
+        return doc_display(v);
+    }
+    let mut docs = vec![RcDoc::text(format!("{}(", v.name.to_ast_string()))];
+    if v.distinct {
+        docs.push(RcDoc::text("DISTINCT"));
+    }
+    docs.push(doc_function_args(&v.args));
+    docs.push(RcDoc::text(")"));
+    RcDoc::intersperse(docs, RcDoc::line_()).group()
+}
+
+fn doc_function_args(v: &FunctionArgs<Raw>) -> RcDoc {
+    match v {
+        FunctionArgs::Star => doc_display_pass(v),
+        FunctionArgs::Args { args, order_by } => {
+            if !order_by.is_empty() {
+                doc_display(v)
+            } else {
+                comma_separate(doc_display, args)
+            }
+        }
+    }
 }
 
 #[cfg(test)]
@@ -414,7 +449,19 @@ mod tests {
             //"SELECT tab_111.col_1 FROM tab_1 AS tab_111 FULL JOIN tab_1 AS tab_112 ON (CAST(- 2474187877618617778 AS bigint) = CAST(2715953958593069068 AS bigint)) RIGHT JOIN tab_1 AS tab_113 ON (tab_113.col_1 > CAST('' AS text));",
             //"select limit 1",
             //"SELECT * FROM [u123 AS materialize.public.foo];",
-            "select 1+2 as eeeee, *",
+            //"select 1+2 as eeeee, *",
+            "SELECT
+    origins.id,
+    (SELECT count(*) FROM events WHERE ((payload ->> 'foo_865' = '843' OR payload ->> 'bar_449' = '658' OR payload ->> 'qux_600' = '583') AND mz_logical_timestamp() BETWEEN (1000 * date_part('epoch', timestamp_col)::numeric) AND (1000 * date_part('epoch', timestamp_col + INTERVAL '30 days')::numeric) AND category_id = origins.category_id AND origin_id = origins.id))
+        AS foo__m4__count_30_days,
+    (SELECT max(timestamp_col) FROM events WHERE ((payload ->> 'foo_573' = '43' OR payload ->> 'bar_727' = '631' OR payload ->> 'qux_976' = '262') AND category_id = origins.category_id AND origin_id = origins.id))
+        AS foo__m19__max_time
+        FROM
+    origins
+        JOIN
+            categories
+            ON categories.id = origins.category_id
+WHERE categories.type = 'foo';",
         ];
 
         for stmt in stmts {
