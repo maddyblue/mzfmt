@@ -1,7 +1,6 @@
 use pretty::*;
 use sql_parser::ast::display::AstDisplay;
 use sql_parser::{ast::*, parser::parse_statements};
-use std::fmt::Display;
 
 const TAB: isize = 4;
 
@@ -34,9 +33,19 @@ pub fn pretty_str(str: &str, width: usize) -> Result<String, String> {
     Ok(pretty_strs(str, width)?.join("\n\n"))
 }
 
-fn doc_display<'a, T: Display>(v: &T) -> RcDoc<'a, ()> {
-    //eprintln!("UNKNOWN PRETTY TYPE {}, {}", std::any::type_name::<T>(), v);
-    RcDoc::text(format!("{}", v))
+// Use when we don't know what to do.
+fn doc_display<'a, T: AstDisplay>(v: &T) -> RcDoc<'a, ()> {
+    eprintln!(
+        "UNKNOWN PRETTY TYPE {}, {}",
+        std::any::type_name::<T>(),
+        v.to_ast_string()
+    );
+    doc_display_pass(v)
+}
+
+// Use when the AstDisplay trait is what we want.
+fn doc_display_pass<'a, T: AstDisplay>(v: &T) -> RcDoc<'a, ()> {
+    RcDoc::text(v.to_ast_string())
 }
 
 fn nest<'a>(title: RcDoc<'a>, v: RcDoc<'a>) -> RcDoc<'a> {
