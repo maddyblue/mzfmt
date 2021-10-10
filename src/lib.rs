@@ -9,7 +9,7 @@ pub fn to_doc(v: &Statement<Raw>) -> RcDoc {
         Statement::Select(v) => doc_select_statement(v),
         Statement::Insert(v) => doc_insert(v),
         Statement::CreateView(v) => doc_create_view(v),
-        _ => doc_display(v),
+        _ => doc_display_pass(v),
     }
 }
 
@@ -34,13 +34,14 @@ pub fn pretty_str(str: &str, width: usize) -> Result<String, String> {
 }
 
 // Use when we don't know what to do.
-fn doc_display<'a, T: AstDisplay>(v: &T) -> RcDoc<'a, ()> {
+fn doc_display<'a, T: AstDisplay>(v: &T, debug: &str) -> RcDoc<'a, ()> {
     eprintln!(
-        "UNKNOWN PRETTY TYPE {}, {}",
+        "UNKNOWN PRETTY TYPE in {}: {}, {}",
+        debug,
         std::any::type_name::<T>(),
         v.to_ast_string()
     );
-    doc_display_pass(v)
+    RcDoc::text(v.to_ast_string())
 }
 
 // Use when the AstDisplay trait is what we want.
@@ -86,12 +87,21 @@ fn comma_separated(v: Vec<RcDoc>) -> RcDoc {
     RcDoc::intersperse(v, RcDoc::concat(vec![RcDoc::text(","), RcDoc::line()])).group()
 }
 
-fn bracket<S: Into<String>>(left: S, d: RcDoc, right: S) -> RcDoc {
-    RcDoc::concat(vec![
+fn bracket<A: Into<String>, B: Into<String>>(left: A, d: RcDoc, right: B) -> RcDoc {
+    bracket_doc(
         RcDoc::text(left.into()),
-        RcDoc::concat(vec![RcDoc::line_(), d]).nest(TAB),
-        RcDoc::line_(),
+        d,
         RcDoc::text(right.into()),
+        RcDoc::line_(),
+    )
+}
+
+fn bracket_doc<'a>(left: RcDoc<'a>, d: RcDoc<'a>, right: RcDoc<'a>, line: RcDoc<'a>) -> RcDoc<'a> {
+    RcDoc::concat(vec![
+        left,
+        RcDoc::concat(vec![line.clone(), d]).nest(TAB),
+        line,
+        right,
     ])
     .group()
 }
@@ -124,12 +134,16 @@ fn doc_view_definition(v: &ViewDefinition<Raw>) -> RcDoc {
     if !v.with_options.is_empty() {
         docs.push(bracket(
             "WITH (",
-            comma_separate(doc_display, &v.with_options),
+            comma_separate(doc_display_pass, &v.with_options),
             ")",
         ));
     }
     if !v.columns.is_empty() {
-        docs.push(bracket("(", comma_separate(doc_display, &v.columns), ")"));
+        docs.push(bracket(
+            "(",
+            comma_separate(doc_display_pass, &v.columns),
+            ")",
+        ));
     }
     docs.push(nest_title("AS", doc_query(&v.query)));
     RcDoc::intersperse(docs, Doc::line()).group()
@@ -138,11 +152,15 @@ fn doc_view_definition(v: &ViewDefinition<Raw>) -> RcDoc {
 fn doc_insert(v: &InsertStatement<Raw>) -> RcDoc {
     let mut first = vec![RcDoc::text(format!("INSERT INTO {}", v.table_name))];
     if !v.columns.is_empty() {
-        first.push(bracket("(", comma_separate(doc_display, &v.columns), ")"));
+        first.push(bracket(
+            "(",
+            comma_separate(doc_display_pass, &v.columns),
+            ")",
+        ));
     }
     let sources = match &v.source {
         InsertSource::Query(query) => doc_query(&query),
-        _ => doc_display(&v.source),
+        _ => doc_display(&v.source, "insert source"),
     };
     RcDoc::intersperse(
         vec![
@@ -168,6 +186,21 @@ fn doc_select_statement(v: &SelectStatement<Raw>) -> RcDoc {
     doc.group()
 }
 
+fn doc_order_by<'a>(v: &'a [OrderByExpr<Raw>]) -> RcDoc<'a> {
+    title_comma_separate(
+        "ORDER BY",
+        |v| {
+            let doc = doc_expr(&v.expr);
+            match v.asc {
+                Some(true) => nest(doc, RcDoc::text("ASC")),
+                Some(false) => nest(doc, RcDoc::text("DESC")),
+                None => doc,
+            }
+        },
+        &v,
+    )
+}
+
 fn doc_query(v: &Query<Raw>) -> RcDoc {
     let mut docs = vec![];
     if !v.ctes.is_empty() {
@@ -175,7 +208,7 @@ fn doc_query(v: &Query<Raw>) -> RcDoc {
     }
     docs.push(doc_set_expr(&v.body));
     if !v.order_by.is_empty() {
-        docs.push(title_comma_separate("ORDER BY", doc_display, &v.order_by));
+        docs.push(doc_order_by(&v.order_by));
     }
 
     let offset = if let Some(offset) = &v.offset {
@@ -267,14 +300,16 @@ fn doc_join(v: &Join<Raw>) -> RcDoc {
         JoinOperator::FullOuter(constraint) => (constraint, "FULL JOIN"),
         JoinOperator::LeftOuter(constraint) => (constraint, "LEFT JOIN"),
         JoinOperator::RightOuter(constraint) => (constraint, "RIGHT JOIN"),
-        _ => return doc_display(v),
+        _ => return doc_display(v, "join operator"),
     };
     let constraint = match constraint {
         JoinConstraint::On(expr) => RcDoc::concat(vec![RcDoc::text("ON "), doc_expr(&expr)]),
-        JoinConstraint::Using(idents) => {
-            bracket("USING(", comma_separate(doc_display, &idents), ")")
-        }
-        _ => return doc_display(v),
+        JoinConstraint::Using(idents) => bracket(
+            "USING(",
+            comma_separate(|v| doc_display(v, "join USING"), &idents),
+            ")",
+        ),
+        _ => return doc_display(v, "join constrant"),
     };
     RcDoc::intersperse(
         vec![RcDoc::text(name), doc_table_factor(&v.relation), constraint],
@@ -292,7 +327,7 @@ fn doc_table_factor(v: &TableFactor<Raw>) -> RcDoc {
             alias,
         } => {
             if *lateral {
-                return doc_display(v);
+                return doc_display(v, "table factor lateral");
             }
             let mut docs = vec![bracket("(", doc_query(subquery), ")")];
             if let Some(alias) = &*alias {
@@ -310,7 +345,8 @@ fn doc_table_factor(v: &TableFactor<Raw>) -> RcDoc {
             }
             doc
         }
-        _ => doc_display(v),
+        TableFactor::Table { .. } => doc_display_pass(v),
+        _ => doc_display(v, "table factor variant"),
     }
 }
 
@@ -343,7 +379,7 @@ fn doc_select(v: &Select<Raw>) -> RcDoc {
     if !v.options.is_empty() {
         docs.push(bracket(
             "OPTION (",
-            comma_separate(doc_display, &v.options),
+            comma_separate(|v| doc_display(v, "select options"), &v.options),
             ")",
         ));
     }
@@ -357,12 +393,12 @@ fn doc_select_item(v: &SelectItem<Raw>) -> RcDoc {
             if let Some(alias) = alias {
                 doc = nest(
                     doc,
-                    RcDoc::concat(vec![RcDoc::text("AS "), doc_display(alias)]),
+                    RcDoc::concat(vec![RcDoc::text("AS "), doc_display_pass(alias)]),
                 );
             }
             doc
         }
-        _ => doc_display(v),
+        SelectItem::Wildcard => doc_display_pass(v),
     }
 }
 
@@ -393,40 +429,106 @@ fn doc_expr(v: &Expr<Raw>) -> RcDoc {
         Expr::Nested(ast) => bracket("(", doc_expr(ast), ")"),
         Expr::Function(fun) => doc_function(fun),
         Expr::Subquery(ast) => bracket("(", doc_query(ast), ")"),
-        Expr::Identifier(_) => doc_display_pass(v),
+        Expr::Identifier(_)
+        | Expr::Value(_)
+        | Expr::QualifiedWildcard(_)
+        | Expr::WildcardAccess(_)
+        | Expr::FieldAccess { .. } => doc_display_pass(v),
+        Expr::And { left, right } => bracket_doc(
+            doc_expr(left),
+            RcDoc::text("AND"),
+            doc_expr(right),
+            RcDoc::line(),
+        ),
+        Expr::Or { left, right } => bracket_doc(
+            doc_expr(left),
+            RcDoc::text("OR"),
+            doc_expr(right),
+            RcDoc::line(),
+        ),
+        Expr::IsExpr {
+            expr,
+            negated,
+            construct,
+        } => bracket_doc(
+            doc_expr(expr),
+            RcDoc::text(if *negated { "IS NOT" } else { "IS" }),
+            doc_display_pass(construct),
+            RcDoc::line(),
+        ),
+        Expr::Not { expr } => {
+            RcDoc::concat(vec![RcDoc::text("NOT"), RcDoc::line(), doc_expr(expr)])
+        }
+        Expr::Between {
+            expr,
+            negated,
+            low,
+            high,
+        } => RcDoc::intersperse(
+            vec![
+                doc_expr(expr),
+                RcDoc::text(if *negated { "NOT BETWEEN" } else { "BETWEEN" }),
+                RcDoc::intersperse(
+                    vec![doc_expr(low), RcDoc::text("AND"), doc_expr(high)],
+                    RcDoc::line(),
+                )
+                .group(),
+            ],
+            RcDoc::line(),
+        ),
+        Expr::InSubquery {
+            expr,
+            subquery,
+            negated,
+        } => RcDoc::intersperse(
+            vec![
+                doc_expr(expr),
+                RcDoc::text(if *negated { "NOT IN (" } else { "IN (" }),
+                doc_query(subquery),
+            ],
+            RcDoc::line(),
+        ),
+        Expr::InList {
+            expr,
+            list,
+            negated,
+        } => RcDoc::intersperse(
+            vec![
+                doc_expr(expr),
+                RcDoc::text(if *negated { "NOT IN (" } else { "IN (" }),
+                comma_separate(doc_expr, list),
+            ],
+            RcDoc::line(),
+        ),
+        Expr::Row { exprs } => bracket("ROW(", comma_separate(doc_expr, exprs), ")"),
         _ => {
             eprintln!(
                 "UNKNOWN expr variant {:?}, {}",
                 std::mem::discriminant(v),
                 v
             );
-            doc_display_pass(v)
+            doc_display(v, "expr variant")
         }
     }
     .group()
 }
 
 fn doc_function(v: &Function<Raw>) -> RcDoc {
-    if v.filter.is_some() || v.over.is_some() {
-        return doc_display(v);
-    }
-    let mut docs = vec![RcDoc::text(format!("{}(", v.name.to_ast_string()))];
-    if v.distinct {
-        docs.push(RcDoc::text("DISTINCT"));
-    }
-    docs.push(doc_function_args(&v.args));
-    docs.push(RcDoc::text(")"));
-    RcDoc::intersperse(docs, RcDoc::line_()).group()
-}
-
-fn doc_function_args(v: &FunctionArgs<Raw>) -> RcDoc {
-    match v {
+    match &v.args {
         FunctionArgs::Star => doc_display_pass(v),
         FunctionArgs::Args { args, order_by } => {
-            if !order_by.is_empty() {
-                doc_display(v)
+            if args.is_empty() {
+                // Nullary, don't allow newline between parens, so just delegate.
+                doc_display_pass(v)
             } else {
-                comma_separate(doc_display, args)
+                if v.filter.is_some() || v.over.is_some() || !order_by.is_empty() {
+                    return doc_display(v, "function filter or over or order by");
+                }
+                let mut name = format!("{}(", v.name.to_ast_string());
+                if v.distinct {
+                    name.push_str("DISTINCT");
+                }
+                bracket(name, comma_separate(doc_expr, &args), ")")
             }
         }
     }
@@ -450,18 +552,23 @@ mod tests {
             //"select limit 1",
             //"SELECT * FROM [u123 AS materialize.public.foo];",
             //"select 1+2 as eeeee, *",
-            "SELECT
-    origins.id,
-    (SELECT count(*) FROM events WHERE ((payload ->> 'foo_865' = '843' OR payload ->> 'bar_449' = '658' OR payload ->> 'qux_600' = '583') AND mz_logical_timestamp() BETWEEN (1000 * date_part('epoch', timestamp_col)::numeric) AND (1000 * date_part('epoch', timestamp_col + INTERVAL '30 days')::numeric) AND category_id = origins.category_id AND origin_id = origins.id))
-        AS foo__m4__count_30_days,
-    (SELECT max(timestamp_col) FROM events WHERE ((payload ->> 'foo_573' = '43' OR payload ->> 'bar_727' = '631' OR payload ->> 'qux_976' = '262') AND category_id = origins.category_id AND origin_id = origins.id))
-        AS foo__m19__max_time
-        FROM
-    origins
-        JOIN
-            categories
-            ON categories.id = origins.category_id
-WHERE categories.type = 'foo';",
+            /*
+                        "SELECT
+                origins.id,
+                (SELECT count(*) FROM events WHERE ((payload ->> 'foo_865' = '843' OR payload ->> 'bar_449' = '658' OR payload ->> 'qux_600' = '583') AND mz_logical_timestamp() BETWEEN (1000 * date_part('epoch', timestamp_col)::numeric) AND (1000 * date_part('epoch', timestamp_col + INTERVAL '30 days')::numeric) AND category_id = origins.category_id AND origin_id = origins.id))
+                    AS foo__m4__count_30_days,
+                (SELECT max(timestamp_col) FROM events WHERE ((payload ->> 'foo_573' = '43' OR payload ->> 'bar_727' = '631' OR payload ->> 'qux_976' = '262') AND category_id = origins.category_id AND origin_id = origins.id))
+                    AS foo__m19__max_time
+                    FROM
+                origins
+                    JOIN
+                        categories
+                        ON categories.id = origins.category_id
+            WHERE categories.type = 'foo';",
+                    */
+            // "select blag(1, 2, 'a')",
+            //  "select 1,2, blag('a', 'b')",
+            "SELECT max(timestamp_col)",
         ];
 
         for stmt in stmts {
@@ -479,6 +586,7 @@ WHERE categories.type = 'foo';",
                 if n > (stmt.len() + 5) {
                     break;
                 }
+                break;
             }
         }
     }
