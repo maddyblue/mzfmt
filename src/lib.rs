@@ -1,6 +1,7 @@
 use pretty::*;
 use sql_parser::ast::display::AstDisplay;
-use sql_parser::{ast::*, parser::parse_statements};
+use sql_parser::ast::*;
+use sql_parser::parser::{parse_statements, ParserError};
 
 const TAB: isize = 4;
 
@@ -21,15 +22,12 @@ pub fn to_pretty(stmt: &Statement<Raw>, width: usize) -> String {
     s
 }
 
-pub fn pretty_strs(str: &str, width: usize) -> Result<Vec<String>, String> {
-    let stmts = match parse_statements(str) {
-        Ok(stmts) => stmts,
-        Err(err) => return Err(err.to_string()),
-    };
+pub fn pretty_strs(str: &str, width: usize) -> Result<Vec<String>, ParserError> {
+    let stmts = parse_statements(str)?;
     Ok(stmts.iter().map(|s| to_pretty(s, width)).collect())
 }
 
-pub fn pretty_str(str: &str, width: usize) -> Result<String, String> {
+pub fn pretty_str(str: &str, width: usize) -> Result<String, ParserError> {
     Ok(pretty_strs(str, width)?.join("\n\n"))
 }
 
