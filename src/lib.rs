@@ -304,11 +304,9 @@ fn doc_join(v: &Join<Raw>) -> RcDoc {
     };
     let constraint = match constraint {
         JoinConstraint::On(expr) => RcDoc::concat(vec![RcDoc::text("ON "), doc_expr(&expr)]),
-        JoinConstraint::Using(idents) => bracket(
-            "USING(",
-            comma_separate(|v| doc_display(v, "join USING"), &idents),
-            ")",
-        ),
+        JoinConstraint::Using(idents) => {
+            bracket("USING(", comma_separate(doc_display_pass, &idents), ")")
+        }
         _ => return doc_display(v, "join constrant"),
     };
     RcDoc::intersperse(
@@ -446,6 +444,7 @@ fn doc_expr(v: &Expr<Raw>) -> RcDoc {
             doc_expr(right),
             RcDoc::line(),
         ),
+        Expr::Exists(s) => bracket("EXISTS (", doc_query(s), ")"),
         Expr::IsExpr {
             expr,
             negated,
@@ -485,6 +484,7 @@ fn doc_expr(v: &Expr<Raw>) -> RcDoc {
                 doc_expr(expr),
                 RcDoc::text(if *negated { "NOT IN (" } else { "IN (" }),
                 doc_query(subquery),
+                RcDoc::text(")"),
             ],
             RcDoc::line(),
         ),
@@ -497,6 +497,7 @@ fn doc_expr(v: &Expr<Raw>) -> RcDoc {
                 doc_expr(expr),
                 RcDoc::text(if *negated { "NOT IN (" } else { "IN (" }),
                 comma_separate(doc_expr, list),
+                RcDoc::text(")"),
             ],
             RcDoc::line(),
         ),
