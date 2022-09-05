@@ -1,7 +1,7 @@
+use mz_sql_parser::ast::display::AstDisplay;
+use mz_sql_parser::ast::*;
+use mz_sql_parser::parser::{parse_statements, ParserError};
 use pretty::*;
-use sql_parser::ast::display::AstDisplay;
-use sql_parser::ast::*;
-use sql_parser::parser::{parse_statements, ParserError};
 
 const TAB: isize = 4;
 
@@ -109,14 +109,13 @@ fn bracket_doc<'a>(left: RcDoc<'a>, d: RcDoc<'a>, right: RcDoc<'a>, line: RcDoc<
 fn doc_create_view(v: &CreateViewStatement<Raw>) -> RcDoc {
     let mut docs = vec![];
     docs.push(RcDoc::text(format!(
-        "CREATE{}{}{} VIEW{}",
+        "CREATE{}{} VIEW{}",
         if v.if_exists == IfExistsBehavior::Replace {
             " OR REPLACE"
         } else {
             ""
         },
         if v.temporary { " TEMPORARY" } else { "" },
-        if v.materialized { " MATERIALIZED" } else { "" },
         if v.if_exists == IfExistsBehavior::Skip {
             " IF NOT EXISTS"
         } else {
@@ -129,13 +128,6 @@ fn doc_create_view(v: &CreateViewStatement<Raw>) -> RcDoc {
 
 fn doc_view_definition(v: &ViewDefinition<Raw>) -> RcDoc {
     let mut docs = vec![RcDoc::text(v.name.to_string())];
-    if !v.with_options.is_empty() {
-        docs.push(bracket(
-            "WITH (",
-            comma_separate(doc_display_pass, &v.with_options),
-            ")",
-        ));
-    }
     if !v.columns.is_empty() {
         docs.push(bracket(
             "(",
@@ -174,12 +166,9 @@ fn doc_insert(v: &InsertStatement<Raw>) -> RcDoc {
 fn doc_select_statement(v: &SelectStatement<Raw>) -> RcDoc {
     let mut doc = doc_query(&v.query);
     if let Some(as_of) = &v.as_of {
-        doc = RcDoc::intersperse(
-            vec![doc, nest_title("AS OF", doc_expr(&as_of))],
-            Doc::line(),
-        )
-        .nest(TAB)
-        .group();
+        doc = RcDoc::intersperse(vec![doc, doc_display_pass(as_of)], Doc::line())
+            .nest(TAB)
+            .group();
     }
     doc.group()
 }
