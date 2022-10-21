@@ -6,9 +6,9 @@ edition = "2018"
 [dependencies]
 clap = { version = "2" }
 pretty = "0.10"
-mz-sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", rev = "e1281ef4520ce239dca49d49f249192d41e948d3" }
+mz-sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", rev = "06b726fb743af87811d58321e657e4438da0f963" }
 structopt = { version = "0.3", default-features = false }
 
 [dev-dependencies]
 datadriven = "0.6"
-mz-sql = { git = "https://github.com/MaterializeInc/materialize.git", rev = "e1281ef4520ce239dca49d49f249192d41e948d3" }
+mz-sql = { git = "https://github.com/MaterializeInc/materialize.git", rev = "06b726fb743af87811d58321e657e4438da0f963" }

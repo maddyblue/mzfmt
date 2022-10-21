@@ -105,9 +105,9 @@ dependencies = [
 
 [[package]]
 name = "arrow2"
-version = "0.13.1"
+version = "0.14.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "afc54f0b14083abaf6bc71cf1aeccd7831a24b1e29d07683ba9a4a0f6c5d9326"
+checksum = "ee6f62e41078c967a4c063fcbdfd3801a2a9632276402c045311c4d73d0845f3"
 dependencies = [
  "ahash",
  "arrow-format",
@@ -116,6 +116,7 @@ dependencies = [
  "chrono",
  "dyn-clone",
  "either",
+ "ethnum",
  "fallible-streaming-iterator",
  "foreign_vec",
  "futures",
@@ -136,18 +137,6 @@ dependencies = [
  "futures-core",
  "memchr",
  "pin-project-lite",
- "tokio",
-]
-
-[[package]]
-name = "async-ssh2-lite"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69832303b1bdcfa73a74e30632e227f1f49ecc9d5da23bc1f2e1c268a1e7aad9"
-dependencies = [
- "async-trait",
- "futures-util",
- "ssh2",
  "tokio",
 ]
 
@@ -222,9 +211,9 @@ dependencies = [
 
 [[package]]
 name = "aws-config"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c2a3ad9e793335d75b2d2faad583487efcc0df9154aff06f299a5c1fc8795698"
+checksum = "b309b2154d224728d845a958c580834f24213037ed61b195da80c0b0fc7469fa"
 dependencies = [
  "aws-http",
  "aws-sdk-sso",
@@ -250,11 +239,12 @@ dependencies = [
 
 [[package]]
 name = "aws-endpoint"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8bd4e9dad553017821ee529f186e033700e8d61dd5c4b60066b4d8fe805b8cfc"
+checksum = "76f35c8f5877ad60db4f0d9dcdfbcb2233a8cc539f9e568df39ee0581ec62e89"
 dependencies = [
  "aws-smithy-http",
+ "aws-smithy-types",
  "aws-types",
  "http",
  "regex",
@@ -263,9 +253,9 @@ dependencies = [
 
 [[package]]
 name = "aws-http"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2ef5a579a51d352b628b76f4855ba716be686305e5e59970c476d1ae2214e90d"
+checksum = "2f5422c9632d887968ccb66e2871a6d190d6104e276034912bee72ef58a5d890"
 dependencies = [
  "aws-smithy-http",
  "aws-smithy-types",
@@ -281,9 +271,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-kinesis"
-version = "0.17.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9eef08115bf848c4cd63106bd70521ca709d61a35f2f0a81377b1d3cce74562"
+checksum = "9cea2a2981341e496fa615628df5b3480ebb95a4b408531a77841b89bb72ee00"
 dependencies = [
  "aws-endpoint",
  "aws-http",
@@ -303,9 +293,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-s3"
-version = "0.17.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0d2c19b69297f16b3f18936e363f954e7504c23a4a0dc3f2833712313c09c2aa"
+checksum = "a4d31765abb258c501d5572ebce43dee524b4b3b6256cb8b4c78534898dc205b"
 dependencies = [
  "aws-endpoint",
  "aws-http",
@@ -331,9 +321,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-sqs"
-version = "0.17.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c5ca36a94eb105609766f6f46d590b0e49ad41551c2434901ecb0100b8df9a97"
+checksum = "e69fd6a9e4af3991d105a83bfa72f3c1dcaab395c7eaf8b70cda4c3c7fe5167b"
 dependencies = [
  "aws-endpoint",
  "aws-http",
@@ -354,9 +344,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-sso"
-version = "0.17.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f014b8ad3178b414bf732b36741325ef659fc40752f8c292400fb7c4ecb7fdd0"
+checksum = "e2cc8b50281e1350d0b5c7207c2ce53c6721186ad196472caff4f20fa4b42e96"
 dependencies = [
  "aws-endpoint",
  "aws-http",
@@ -376,9 +366,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-sts"
-version = "0.17.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d37e45fdce84327c69fb924b9188fd889056c6afafbd494e8dd0daa400f9c082"
+checksum = "d6179f13c9fbab3226860f377354dece860e34ff129b69c7c1b0fa828d1e9c76"
 dependencies = [
  "aws-endpoint",
  "aws-http",
@@ -398,9 +388,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sig-auth"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6530e72945c11439e9b3c423c95a656a233d73c3a7d4acaf9789048e1bdf7da7"
+checksum = "b16f4d70c9c865af392eb40cacfe2bec3fa18f651fbdf49919cfc1dda13b189e"
 dependencies = [
  "aws-sigv4",
  "aws-smithy-eventstream",
@@ -412,9 +402,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sigv4"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6351c3ba468b04bd819f64ea53538f5f53e3d6b366b27deabee41e73c9edb3af"
+checksum = "8d33790cecae42b999d197074c8a19e9b96b9e346284a6f93989e7489c9fa0f5"
 dependencies = [
  "aws-smithy-eventstream",
  "aws-smithy-http",
@@ -432,9 +422,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-async"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "86fc23ad8d050c241bdbfa74ae360be94a844ace8e218f64a2b2de77bfa9a707"
+checksum = "bc604f278bae64bbd15854baa9c46ed69a56dfb0669d04aab80974749f2d6599"
 dependencies = [
  "futures-util",
  "pin-project-lite",
@@ -444,9 +434,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-checksums"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6dd674df030b337a84eb67539db048676c691d9c88f0c54cf7748da11836cfd8"
+checksum = "4b402da39bc5aae618b70a9b8d828acad21fe4a3a73b82c0205b89db55d71ce8"
 dependencies = [
  "aws-smithy-http",
  "aws-smithy-types",
@@ -465,9 +455,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-client"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2e147b157f49ce77f2a86ec693a14c84b2441fa28be58ffb2febb77d5726c934"
+checksum = "ec39585f8274fa543ad5c63cc09cbd435666be16b2cf99e4e07be5cf798bc050"
 dependencies = [
  "aws-smithy-async",
  "aws-smithy-http",
@@ -487,9 +477,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-eventstream"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da29e67a0b90a2bc5f2bd0a06fd43e728de62e02048879c15f646a3edf8db012"
+checksum = "98c2a7b9490fd2bc7af3a1c486ae921102d7234d1fa5e7d91039068e7af48a01"
 dependencies = [
  "aws-smithy-types",
  "bytes",
@@ -498,9 +488,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-http"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5cc1af50eac644ab6f58e5bae29328ba3092851fc2ce648ad139134699b2b66f"
+checksum = "014a0ef5c4508fc2f6a9d3925c214725af19f020ea388db48e20196cc4cc9d6d"
 dependencies = [
  "aws-smithy-eventstream",
  "aws-smithy-types",
@@ -520,9 +510,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-http-tower"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1bf4c4664dff2febf91f8796505c5bc8f38a0bff0d1397d1d3fdda17bd5c5d1"
+checksum = "deecb478dc3cc40203e0e97ac0fb92947e0719754bbafd0026bdc49318e2fd03"
 dependencies = [
  "aws-smithy-http",
  "bytes",
@@ -535,18 +525,18 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-json"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e6ebc76c3c108dd2a96506bf47dc31f75420811a19f1a09907524d1451789d2"
+checksum = "6593456af93c4a39724f7dc9d239833102ab96c1d1e94c35ea79f0e55f9fd54c"
 dependencies = [
  "aws-smithy-types",
 ]
 
 [[package]]
 name = "aws-smithy-query"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2956f1385c4daa883907a2c81d32256af8f95834c9de1bc0613fa68db63b88c4"
+checksum = "b803460b71645dfa9f6be47c4f00f91632f01e5bb01f9dc43890cd6cba983f08"
 dependencies = [
  "aws-smithy-types",
  "urlencoding",
@@ -554,9 +544,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-types"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "352fb335ec1d57160a17a13e87aaa0a172ab780ddf58bfc85caedd3b7e47caed"
+checksum = "e93b0c93a3b963da946a0b8ef3853a7252298eb75cdbfb21dad60f5ed0ded861"
 dependencies = [
  "itoa 1.0.4",
  "num-integer",
@@ -566,18 +556,18 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-xml"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6cf2807fa715a5a3296feffb06ce45252bd0dfd48f52838128c48fb339ddbf5c"
+checksum = "36b9efb4855b4acb29961a776d45680f3cbdd7c4783cbbae078da54c342575dd"
 dependencies = [
  "xmlparser",
 ]
 
 [[package]]
 name = "aws-types"
-version = "0.47.0"
+version = "0.49.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8140b89d76f67be2c136d7393e7e6d8edd65424eb58214839efbf4a2e4f7e8a3"
+checksum = "93f3f349b39781849261db1c727369923bb97007cf7bd0deb3a6e9e461c8d38f"
 dependencies = [
  "aws-smithy-async",
  "aws-smithy-client",
@@ -667,6 +657,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9e1b586273c5702936fe7b7d6896644d8be71e6314cfe09d3167c95f712589e8"
 
 [[package]]
+name = "base64ct"
+version = "1.5.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b645a089122eccb6111b4f81cbc1a49f5900ac4666bb93ac027feaecf15607bf"
+
+[[package]]
 name = "bincode"
 version = "1.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -680,15 +676,6 @@ name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
-
-[[package]]
-name = "bitpacking"
-version = "0.8.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a8c7d2ac73c167c06af4a5f37e6e59d84148d57ccbe4480b76f0273eefea82d7"
-dependencies = [
- "crunchy",
-]
 
 [[package]]
 name = "block-buffer"
@@ -911,6 +898,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "const-oid"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e4c78c047431fee22c1a7bb92e00ad095a02a983affe4d8a72e2a2c62c1b94f3"
+
+[[package]]
 name = "core-foundation"
 version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1021,12 +1014,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "crunchy"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7a81dae078cea95a014a339291cec439d2f232ebe854a9d672b796c6afafa9b7"
-
-[[package]]
 name = "crypto-common"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1120,7 +1107,7 @@ checksum = "c0834a35a3fce649144119e18da2a4d8ed12ef3862f47183fd46f625d072d96c"
 dependencies = [
  "cfg-if",
  "num_cpus",
- "parking_lot 0.12.1",
+ "parking_lot",
 ]
 
 [[package]]
@@ -1168,6 +1155,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "debugid"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bef552e6f588e446098f6ba40d89ac146c8c7b64aade83c051ee00bb5d2bc18d"
+dependencies = [
+ "serde",
+ "uuid",
+]
+
+[[package]]
 name = "dec"
 version = "0.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1186,6 +1183,15 @@ checksum = "76a99b958f19724bc0a2202086d135c2e7ed098e95cdae778546e965648fa47b"
 dependencies = [
  "cc",
  "libc",
+]
+
+[[package]]
+name = "der"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6919815d73839e7ad218de758883aae3a257ba6759ce7a9992501efbb53d705c"
+dependencies = [
+ "const-oid",
 ]
 
 [[package]]
@@ -1230,6 +1236,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "dirs"
+version = "4.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ca3aa72a6f96ea37bbc5aa912f6788242832f75369bdfdadcb0e38423f100059"
+dependencies = [
+ "dirs-sys",
+]
+
+[[package]]
 name = "dirs-next"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1237,6 +1252,17 @@ checksum = "b98cf8ebf19c3d1b223e151f99a4f9f0690dca41414773390fc824184ac833e1"
 dependencies = [
  "cfg-if",
  "dirs-sys-next",
+]
+
+[[package]]
+name = "dirs-sys"
+version = "0.3.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1b1d1d91c932ef41c0f2663aa8b0ca0342d444d842c06914aa0a7e352d0bada6"
+dependencies = [
+ "libc",
+ "redox_users",
+ "winapi",
 ]
 
 [[package]]
@@ -1365,6 +1391,12 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "ethnum"
+version = "1.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eac3c0b9fa6eb75255ebb42c0ba3e2210d102a66d2795afef6fed668f373311"
 
 [[package]]
 name = "fail"
@@ -1678,6 +1710,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hostname"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c731c3e10504cc8ed35cfe2f1db4c9274c3d35fa486e3b31df46f068ef3e867"
+dependencies = [
+ "libc",
+ "match_cfg",
+ "winapi",
+]
+
+[[package]]
 name = "http"
 version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1728,6 +1771,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c4a1e36c821dbe04574f602848a19f742f4fb3c98d40449f11bcad18d6b17421"
 
 [[package]]
+name = "humantime"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9a3a5bfb195931eeb336b2a7b4d761daec841b97f947d34394601737a7bba5e4"
+
+[[package]]
 name = "hyper"
 version = "0.14.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1763,7 +1812,7 @@ dependencies = [
  "once_cell",
  "openssl",
  "openssl-sys",
- "parking_lot 0.12.1",
+ "parking_lot",
  "tokio",
  "tokio-openssl",
  "tower-layer",
@@ -1845,16 +1894,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a5bbe824c507c5da5956355e86a746d82e0e1464f65d862cc5e71da70e94b2c"
 dependencies = [
  "cfg-if",
-]
-
-[[package]]
-name = "integer-encoding"
-version = "3.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8bb03732005da905c88227371639bf1ad885cc712789c011c31c5fb3ab3ccf02"
-dependencies = [
- "async-trait",
- "futures-util",
 ]
 
 [[package]]
@@ -2020,7 +2059,7 @@ dependencies = [
  "json-patch",
  "k8s-openapi",
  "kube-client",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project",
  "serde",
  "serde_json",
@@ -2050,20 +2089,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f0455f2c1bc9a7caa792907026e469c1d91761fb0ea37cbb16427c77280cf35"
 dependencies = [
  "cc",
- "pkg-config",
- "vcpkg",
-]
-
-[[package]]
-name = "libssh2-sys"
-version = "0.2.23"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b094a36eb4b8b8c8a7b4b8ae43b2944502be3e59cd87687595cf6b0a71b3f4ca"
-dependencies = [
- "cc",
- "libc",
- "libz-sys",
- "openssl-sys",
  "pkg-config",
  "vcpkg",
 ]
@@ -2128,6 +2153,12 @@ name = "maplit"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3e2e65a1a2e43cfcb47a895c4c8b10d1f4a61097f9f254f183aee60cad9c651d"
+
+[[package]]
+name = "match_cfg"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ffbee8634e0d45d258acb448e7eaab3fce7a0a467395d4d9f228e3c1f01fb2e4"
 
 [[package]]
 name = "matchers"
@@ -2204,7 +2235,7 @@ checksum = "e5ce46fe64a9d73be07dcbe690a38ce1b293be448fd8ce1e6c1b8062c9f72c6a"
 [[package]]
 name = "mz-avro"
 version = "0.7.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -2227,7 +2258,7 @@ dependencies = [
 [[package]]
 name = "mz-avro-derive"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "quote",
  "syn",
@@ -2236,7 +2267,7 @@ dependencies = [
 [[package]]
 name = "mz-build-info"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "compile-time-run",
  "semver",
@@ -2245,7 +2276,7 @@ dependencies = [
 [[package]]
 name = "mz-ccsr"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "native-tls",
@@ -2261,7 +2292,7 @@ dependencies = [
 [[package]]
 name = "mz-compute-client"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2270,6 +2301,7 @@ dependencies = [
  "futures",
  "mz-build-info",
  "mz-expr",
+ "mz-orchestrator",
  "mz-ore",
  "mz-persist",
  "mz-persist-types",
@@ -2283,6 +2315,7 @@ dependencies = [
  "proptest-derive",
  "prost",
  "protobuf-src",
+ "regex",
  "serde",
  "serde_json",
  "timely",
@@ -2297,11 +2330,12 @@ dependencies = [
 [[package]]
 name = "mz-expr"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "aho-corasick",
  "anyhow",
  "bytes",
+ "bytesize",
  "chrono",
  "csv",
  "dec",
@@ -2343,7 +2377,7 @@ dependencies = [
 [[package]]
 name = "mz-interchange"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -2371,7 +2405,7 @@ dependencies = [
 [[package]]
 name = "mz-kafka-util"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "chrono",
@@ -2400,7 +2434,7 @@ dependencies = [
 [[package]]
 name = "mz-kinesis-util"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "aws-sdk-kinesis",
 ]
@@ -2408,7 +2442,7 @@ dependencies = [
 [[package]]
 name = "mz-lowertest"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "mz-lowertest-derive",
  "mz-ore",
@@ -2420,7 +2454,7 @@ dependencies = [
 [[package]]
 name = "mz-lowertest-derive"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2430,7 +2464,7 @@ dependencies = [
 [[package]]
 name = "mz-orchestrator"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2438,13 +2472,18 @@ dependencies = [
  "chrono",
  "derivative",
  "futures-core",
+ "mz-ore",
+ "mz-proto",
+ "prost",
+ "protobuf-src",
  "serde",
+ "tonic-build",
 ]
 
 [[package]]
 name = "mz-orchestrator-kubernetes"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2464,7 +2503,7 @@ dependencies = [
 [[package]]
 name = "mz-orchestrator-process"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-stream",
@@ -2487,7 +2526,7 @@ dependencies = [
 [[package]]
 name = "mz-ore"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "ansi_term",
  "anyhow",
@@ -2510,8 +2549,12 @@ dependencies = [
  "paste",
  "pin-project",
  "prometheus",
+ "sentry",
+ "sentry-tracing",
  "serde",
+ "serde_json",
  "smallvec",
+ "ssh-key",
  "stacker",
  "tokio",
  "tokio-native-tls",
@@ -2520,12 +2563,13 @@ dependencies = [
  "tracing",
  "tracing-opentelemetry",
  "tracing-subscriber",
+ "zeroize",
 ]
 
 [[package]]
 name = "mz-persist"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "arrow2",
@@ -2533,6 +2577,7 @@ dependencies = [
  "aws-config",
  "aws-sdk-s3",
  "aws-smithy-http",
+ "aws-smithy-types",
  "aws-types",
  "base64",
  "bytes",
@@ -2564,7 +2609,7 @@ dependencies = [
 [[package]]
 name = "mz-persist-client"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-stream",
@@ -2573,6 +2618,7 @@ dependencies = [
  "differential-dataflow",
  "futures",
  "futures-util",
+ "humantime",
  "mz-build-info",
  "mz-ore",
  "mz-persist",
@@ -2595,7 +2641,7 @@ dependencies = [
 [[package]]
 name = "mz-persist-types"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "bytes",
 ]
@@ -2603,7 +2649,7 @@ dependencies = [
 [[package]]
 name = "mz-pgcopy"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "bytes",
  "csv",
@@ -2614,7 +2660,7 @@ dependencies = [
 [[package]]
 name = "mz-pgrepr"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "byteorder",
  "bytes",
@@ -2629,7 +2675,7 @@ dependencies = [
 [[package]]
 name = "mz-pid-file"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "cc",
  "libc",
@@ -2639,27 +2685,30 @@ dependencies = [
 [[package]]
 name = "mz-postgres-util"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
- "async-ssh2-lite",
  "mz-ore",
  "mz-proto",
+ "openssh",
  "openssl",
  "postgres-openssl",
  "proptest",
  "prost",
  "protobuf-src",
+ "rand",
  "serde",
+ "tempfile",
  "tokio",
  "tokio-postgres 0.7.6",
  "tonic-build",
+ "tracing",
 ]
 
 [[package]]
 name = "mz-proto"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "globset",
@@ -2679,17 +2728,19 @@ dependencies = [
 [[package]]
 name = "mz-repr"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "bytes",
  "chrono",
  "chrono-tz",
  "dec",
+ "differential-dataflow",
  "enum-kinds",
  "fast-float",
  "hex",
  "itertools",
+ "mz-avro",
  "mz-lowertest",
  "mz-ore",
  "mz-persist-types",
@@ -2709,7 +2760,10 @@ dependencies = [
  "serde_json",
  "serde_regex",
  "smallvec",
+ "thiserror",
  "timely",
+ "tracing",
+ "tracing-subscriber",
  "url",
  "uuid",
 ]
@@ -2717,7 +2771,7 @@ dependencies = [
 [[package]]
 name = "mz-secrets"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2727,7 +2781,7 @@ dependencies = [
 [[package]]
 name = "mz-service"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-stream",
@@ -2754,14 +2808,16 @@ dependencies = [
 [[package]]
 name = "mz-sql"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "aws-arn",
  "aws-sdk-sts",
  "chrono",
+ "enum-kinds",
  "globset",
  "hex",
+ "http",
  "itertools",
  "mz-build-info",
  "mz-ccsr",
@@ -2798,9 +2854,10 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
+ "enum-kinds",
  "itertools",
  "mz-ore",
  "mz-walkabout",
@@ -2814,7 +2871,7 @@ dependencies = [
 [[package]]
 name = "mz-stash"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "async-trait",
  "differential-dataflow",
@@ -2835,7 +2892,7 @@ dependencies = [
 [[package]]
 name = "mz-storage"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "async-compression",
@@ -2852,6 +2909,7 @@ dependencies = [
  "chrono",
  "crossbeam-channel",
  "csv-core",
+ "dec",
  "derivative",
  "differential-dataflow",
  "fail",
@@ -2910,18 +2968,19 @@ dependencies = [
 [[package]]
 name = "mz-timely-util"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "differential-dataflow",
  "futures-util",
  "proptest",
+ "serde",
  "timely",
 ]
 
 [[package]]
 name = "mz-walkabout"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=e1281ef4520ce239dca49d49f249192d41e948d3#e1281ef4520ce239dca49d49f249192d41e948d3"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=06b726fb743af87811d58321e657e4438da0f963#06b726fb743af87811d58321e657e4438da0f963"
 dependencies = [
  "anyhow",
  "itertools",
@@ -2962,9 +3021,9 @@ dependencies = [
 
 [[package]]
 name = "ntapi"
-version = "0.3.7"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c28774a7fd2fbb4f0babd8237ce554b73af68021b5f695a3cebd6c59bac0980f"
+checksum = "bc51db7b362b205941f71232e56c625156eb9a929f8cf74a428fd5bc094a4afc"
 dependencies = [
  "winapi",
 ]
@@ -3109,6 +3168,21 @@ name = "once_cell"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e82dad04139b71a90c080c8463fe0dc7902db5192d939bd0950f074d014339e1"
+
+[[package]]
+name = "openssh"
+version = "0.9.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76cbcf081bc4d65a3ba0dd5bccccf89470e61d54142174f6c0b531e459aac8ff"
+dependencies = [
+ "dirs",
+ "once_cell",
+ "shell-escape",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tokio-pipe",
+]
 
 [[package]]
 name = "openssl"
@@ -3283,37 +3357,12 @@ checksum = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
 
 [[package]]
 name = "parking_lot"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d17b78036a60663b797adeaee46f5c9dfebb86948d1255007a1d6be0271ff99"
-dependencies = [
- "instant",
- "lock_api",
- "parking_lot_core 0.8.5",
-]
-
-[[package]]
-name = "parking_lot"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3742b2c103b9f06bc9fff0a37ff4912935851bee6d36f3c02bcc755bcfec228f"
 dependencies = [
  "lock_api",
- "parking_lot_core 0.9.4",
-]
-
-[[package]]
-name = "parking_lot_core"
-version = "0.8.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d76e8e1493bcac0d2766c42737f34458f1c8c50c0d23bcb24ea953affb273216"
-dependencies = [
- "cfg-if",
- "instant",
- "libc",
- "redox_syscall",
- "smallvec",
- "winapi",
+ "parking_lot_core",
 ]
 
 [[package]]
@@ -3330,26 +3379,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "parquet-format-async-temp"
-version = "0.3.1"
+name = "parquet-format-safe"
+version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e1a672c84c3e5b5eb6530286b2d22cc1ea8e1e3560e4c314218d6ab749c6db99"
+checksum = "1131c54b167dd4e4799ce762e1ab01549ebb94d5bdd13e6ec1b467491c378e1f"
 dependencies = [
  "async-trait",
  "futures",
- "integer-encoding",
 ]
 
 [[package]]
 name = "parquet2"
-version = "0.14.3"
+version = "0.16.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b8fa7afeef767fb16a37216cdf906268ae10db9825aa1ed8723b8493b1e99b0b"
+checksum = "7752b1a7d61b278f36820ba05557a2a8bfcb17f3559254577ef447beda0c4975"
 dependencies = [
  "async-stream",
- "bitpacking",
  "futures",
- "parquet-format-async-temp",
+ "parquet-format-safe",
+ "seq-macro",
  "streaming-decompression",
 ]
 
@@ -3375,6 +3423,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "03c64931a1a212348ec4f3b4362585eca7159d0d09cbdf4a7f74f02173596fd4"
 dependencies = [
  "base64",
+]
+
+[[package]]
+name = "pem-rfc7468"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24d159833a9105500e0398934e205e0773f0b27529557134ecfc51c27646adac"
+dependencies = [
+ "base64ct",
 ]
 
 [[package]]
@@ -3643,7 +3700,7 @@ dependencies = [
  "fnv",
  "lazy_static",
  "memchr",
- "parking_lot 0.12.1",
+ "parking_lot",
  "thiserror",
 ]
 
@@ -4048,6 +4105,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c8132065adcfd6e02db789d9285a0deb2f3fcb04002865ab67d5fb103533898"
 
 [[package]]
+name = "sec1"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08da66b8b0965a5555b6bd6639e68ccba85e1e2506f5fbb089e93f8a04e1a2d1"
+dependencies = [
+ "der",
+ "generic-array",
+]
+
+[[package]]
 name = "secrecy"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4085,6 +4152,103 @@ name = "semver"
 version = "1.0.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e25dfac463d778e353db5be2449d1cce89bd6fd23c9f1ea21310ce6e5a1b29c4"
+
+[[package]]
+name = "sentry"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "73642819e7fa63eb264abc818a2f65ac8764afbe4870b5ee25bcecc491be0d4c"
+dependencies = [
+ "httpdate",
+ "reqwest",
+ "sentry-backtrace",
+ "sentry-contexts",
+ "sentry-core",
+ "sentry-panic",
+ "tokio",
+]
+
+[[package]]
+name = "sentry-backtrace"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49bafa55eefc6dbc04c7dac91e8c8ab9e89e9414f3193c105cabd991bbc75134"
+dependencies = [
+ "backtrace",
+ "once_cell",
+ "regex",
+ "sentry-core",
+]
+
+[[package]]
+name = "sentry-contexts"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c63317c4051889e73f0b00ce4024cae3e6a225f2e18a27d2c1522eb9ce2743da"
+dependencies = [
+ "hostname",
+ "libc",
+ "rustc_version",
+ "sentry-core",
+ "uname",
+]
+
+[[package]]
+name = "sentry-core"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5a4591a2d128af73b1b819ab95f143bc6a2fbe48cd23a4c45e1ee32177e66ae6"
+dependencies = [
+ "once_cell",
+ "rand",
+ "sentry-types",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "sentry-panic"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "696c74c5882d5a0d5b4a31d0ff3989b04da49be7983b7f52a52c667da5b480bf"
+dependencies = [
+ "sentry-backtrace",
+ "sentry-core",
+]
+
+[[package]]
+name = "sentry-tracing"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ea50bcf843510179a7ba41c9fe4d83a8958e9f8adf707ec731ff999297536344"
+dependencies = [
+ "sentry-core",
+ "tracing-core",
+ "tracing-subscriber",
+]
+
+[[package]]
+name = "sentry-types"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "823923ae5f54a729159d720aa12181673044ee5c79cbda3be09e56f885e5468f"
+dependencies = [
+ "debugid",
+ "getrandom",
+ "hex",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "time",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "seq-macro"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0772c5c30e1a0d91f6834f8e545c69281c099dfa9a3ac58d96a9fd629c8d4898"
 
 [[package]]
 name = "serde"
@@ -4205,6 +4369,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "shell-escape"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45bb67a18fa91266cc7807181f62f9178a6873bfad7dc788c42e6430db40184f"
+
+[[package]]
 name = "signal-hook-registry"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4212,6 +4382,12 @@ checksum = "e51e73328dc4ac0c7ccbda3a494dfa03df1de2f46018127f60c693f2648455b0"
 dependencies = [
  "libc",
 ]
+
+[[package]]
+name = "signature"
+version = "1.6.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "74233d3b3b2f6d4b006dc19dee745e73e2a6bfb6f93607cd3b02bd5b00797d7c"
 
 [[package]]
 name = "simdutf8"
@@ -4266,15 +4442,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6e63cff320ae2c57904679ba7cb63280a3dc4613885beafb148ee7bf9aa9042d"
 
 [[package]]
-name = "ssh2"
-version = "0.9.3"
+name = "ssh-key"
+version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "269343e64430067a14937ae0e3c4ec604c178fb896dde0964b1acd22b3e2eeb1"
+checksum = "f02d3730e8785e797a4552137d1acc0d7f7146dad3b5fe65ed83637711dfc6c5"
 dependencies = [
- "bitflags",
- "libc",
- "libssh2-sys",
- "parking_lot 0.11.2",
+ "base64ct",
+ "pem-rfc7468",
+ "rand_core",
+ "sec1",
+ "sha2",
+ "signature",
+ "zeroize",
 ]
 
 [[package]]
@@ -4394,9 +4573,9 @@ dependencies = [
 
 [[package]]
 name = "sysinfo"
-version = "0.25.3"
+version = "0.26.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "71eb43e528fdc239f08717ec2a378fdb017dddbc3412de15fff527554591a66c"
+checksum = "ade661fa5e048ada64ad7901713301c21d2dbc5b65ee7967de8826c111452960"
 dependencies = [
  "cfg-if",
  "core-foundation-sys",
@@ -4480,6 +4659,7 @@ version = "0.3.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d634a985c4d4238ec39cacaed2e7ae552fbd3c476b552c1deac3021b7d7eaf0c"
 dependencies = [
+ "itoa 1.0.4",
  "libc",
  "num_threads",
 ]
@@ -4616,6 +4796,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "tokio-pipe"
+version = "0.2.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f213a84bffbd61b8fa0ba8a044b4bbe35d471d0b518867181e82bd5c15542784"
+dependencies = [
+ "libc",
+ "tokio",
+]
+
+[[package]]
 name = "tokio-postgres"
 version = "0.7.6"
 source = "git+https://github.com/MaterializeInc/rust-postgres#abff35ecc553dc23ca8f85e64945e87a93cbba28"
@@ -4626,7 +4816,7 @@ dependencies = [
  "fallible-iterator",
  "futures",
  "log",
- "parking_lot 0.12.1",
+ "parking_lot",
  "percent-encoding",
  "phf",
  "pin-project-lite",
@@ -4651,7 +4841,7 @@ dependencies = [
  "futures-channel",
  "futures-util",
  "log",
- "parking_lot 0.12.1",
+ "parking_lot",
  "percent-encoding",
  "phf",
  "pin-project-lite",
@@ -4944,6 +5134,15 @@ name = "typenum"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dcf81ac59edc17cc8697ff311e8f5ef2d99fcbd9817b34cec66f90b6c3dfd987"
+
+[[package]]
+name = "uname"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b72f89f0ca32e4db1c04e2a72f5345d59796d4866a1ee0609084569f73683dc8"
+dependencies = [
+ "libc",
+]
 
 [[package]]
 name = "uncased"
@@ -5326,6 +5525,9 @@ name = "zeroize"
 version = "1.5.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c394b5bd0c6f669e7275d9c20aa90ae064cb22e75a1cad54e1b34088034b149f"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "zstd-sys"

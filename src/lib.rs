@@ -255,6 +255,7 @@ fn doc_set_expr(v: &SetExpr<Raw>) -> RcDoc {
             ])
         }
         SetExpr::Values(v) => doc_values(v),
+        SetExpr::Show(v) => doc_display(v, "SHOW"),
     }
     .group()
 }
