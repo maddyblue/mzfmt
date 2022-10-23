@@ -526,7 +526,7 @@ fn doc_function(v: &Function<Raw>) -> RcDoc {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sql_parser::parser::parse_statements;
+    use mz_sql_parser::parser::parse_statements;
 
     #[test]
     fn pretty() {

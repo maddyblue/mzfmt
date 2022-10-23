@@ -8,8 +8,8 @@ use mzfmt::*;
 #[ignore]
 fn parser() {
     use datadriven::walk;
-    use sql::ast::display::AstDisplay;
-    use sql_parser::parser::parse_statements;
+    use mz_sql_parser::ast::display::AstDisplay;
+    use mz_sql_parser::parser::parse_statements;
 
     walk(
         "/home/mjibson/materialize/src/sql-parser/tests/testdata",
