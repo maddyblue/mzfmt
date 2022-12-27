@@ -5,8 +5,8 @@ edition = "2018"
 
 [dependencies]
 clap = { version = "2" }
-pretty = "0.10"
-mz-sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", rev = "06b726fb743af87811d58321e657e4438da0f963" }
+#mz-sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", rev = "06b726fb743af87811d58321e657e4438da0f963" }
+mz-sql-parser = { path = "/home/mjibson/materialize/src/sql-parser" }
 structopt = { version = "0.3", default-features = false }
 
 [dev-dependencies]
