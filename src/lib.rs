@@ -48,7 +48,7 @@ mod tests {
     #[test]
     fn pretty() {
         let stmts = vec![
-            //"with a as (select 'blah', 'another string') select 1, 2, 3 from a, b, c where a = b group by c, d having 1 = 4 AND a < c order by a limit 1 offset 2 rows",
+            "with a as (select 'blah', 'another string') select 1, 2, 3 from a, b, c where a = b group by c, d having 1 = 4 AND a < c order by a limit 1 offset 2 rows",
             //"with a as (select 'blah', 'another string') select 1 from a",
             //"select 1 union select 2",
             //"insert into t (a,b,c) values (1,2,3), (4,5,6)",
@@ -92,7 +92,7 @@ mod tests {
                 if n > (stmt.len() + 5) {
                     break;
                 }
-                break;
+                //break;
             }
         }
     }
