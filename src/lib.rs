@@ -10,6 +10,7 @@ pub fn to_doc(v: &Statement<Raw>) -> RcDoc {
         Statement::Select(v) => doc_select_statement(v),
         Statement::Insert(v) => doc_insert(v),
         Statement::CreateView(v) => doc_create_view(v),
+        Statement::CreateMaterializedView(v) => doc_create_materialized_view(v),
         _ => doc_display_pass(v),
     }
 }
@@ -77,7 +78,7 @@ fn comma_separate<'a, F, T>(f: F, v: &'a [T]) -> RcDoc<'a, ()>
 where
     F: Fn(&'a T) -> RcDoc<'a, ()>,
 {
-    let docs = v.iter().map(|v| f(v)).collect();
+    let docs = v.iter().map(f).collect();
     comma_separated(docs)
 }
 
@@ -126,6 +127,36 @@ fn doc_create_view(v: &CreateViewStatement<Raw>) -> RcDoc {
     RcDoc::intersperse(docs, Doc::line()).nest(TAB).group()
 }
 
+fn doc_create_materialized_view(v: &CreateMaterializedViewStatement<Raw>) -> RcDoc {
+    let mut docs = vec![];
+    docs.push(RcDoc::text(format!(
+        "CREATE{} MATERIALIZED VIEW{} {}",
+        if v.if_exists == IfExistsBehavior::Replace {
+            " OR REPLACE"
+        } else {
+            ""
+        },
+        if v.if_exists == IfExistsBehavior::Skip {
+            " IF NOT EXISTS"
+        } else {
+            ""
+        },
+        v.name,
+    )));
+    if !v.columns.is_empty() {
+        docs.push(bracket(
+            "(",
+            comma_separate(doc_display_pass, &v.columns),
+            ")",
+        ));
+    }
+    if let Some(cluster) = &v.in_cluster {
+        docs.push(RcDoc::text(format!("IN CLUSTER {cluster}")));
+    }
+    docs.push(nest_title("AS", doc_query(&v.query)));
+    RcDoc::intersperse(docs, Doc::line()).nest(TAB).group()
+}
+
 fn doc_view_definition(v: &ViewDefinition<Raw>) -> RcDoc {
     let mut docs = vec![RcDoc::text(v.name.to_string())];
     if !v.columns.is_empty() {
@@ -149,7 +180,7 @@ fn doc_insert(v: &InsertStatement<Raw>) -> RcDoc {
         ));
     }
     let sources = match &v.source {
-        InsertSource::Query(query) => doc_query(&query),
+        InsertSource::Query(query) => doc_query(query),
         _ => doc_display(&v.source, "insert source"),
     };
     RcDoc::intersperse(
@@ -173,7 +204,7 @@ fn doc_select_statement(v: &SelectStatement<Raw>) -> RcDoc {
     doc.group()
 }
 
-fn doc_order_by<'a>(v: &'a [OrderByExpr<Raw>]) -> RcDoc<'a> {
+fn doc_order_by(v: &[OrderByExpr<Raw>]) -> RcDoc {
     title_comma_separate(
         "ORDER BY",
         |v| {
@@ -184,22 +215,32 @@ fn doc_order_by<'a>(v: &'a [OrderByExpr<Raw>]) -> RcDoc<'a> {
                 None => doc,
             }
         },
-        &v,
+        v,
     )
 }
 
 fn doc_query(v: &Query<Raw>) -> RcDoc {
     let mut docs = vec![];
     if !v.ctes.is_empty() {
-        docs.push(title_comma_separate("WITH", doc_cte, &v.ctes));
+        match &v.ctes {
+            CteBlock::Simple(ctes) => docs.push(title_comma_separate("WITH", doc_cte, ctes)),
+            CteBlock::MutuallyRecursive(ctes) => docs.push(title_comma_separate(
+                "WITH MUTUALLY RECURSIVE",
+                doc_mutually_recursive,
+                ctes,
+            )),
+        }
     }
+    // if !v.ctes.is_empty() {
+    //     docs.push(title_comma_separate("WITH", doc_cte, &v.ctes));
+    //   }
     docs.push(doc_set_expr(&v.body));
     if !v.order_by.is_empty() {
         docs.push(doc_order_by(&v.order_by));
     }
 
     let offset = if let Some(offset) = &v.offset {
-        vec![RcDoc::concat(vec![nest_title("OFFSET", doc_expr(&offset))])]
+        vec![RcDoc::concat(vec![nest_title("OFFSET", doc_expr(offset))])]
     } else {
         vec![]
     };
@@ -229,6 +270,22 @@ fn doc_cte(v: &Cte<Raw>) -> RcDoc {
         RcDoc::line(),
         bracket("(", doc_query(&v.query), ")"),
     ])
+}
+
+fn doc_mutually_recursive(v: &CteMutRec<Raw>) -> RcDoc {
+    let mut docs = Vec::new();
+    if !v.columns.is_empty() {
+        docs.push(bracket(
+            "(",
+            comma_separate(doc_display_pass, &v.columns),
+            ")",
+        ));
+    }
+    docs.push(bracket("AS (", doc_query(&v.query), ")"));
+    nest(
+        doc_display_pass(&v.name),
+        RcDoc::intersperse(docs, Doc::line()).group(),
+    )
 }
 
 fn doc_set_expr(v: &SetExpr<Raw>) -> RcDoc {
@@ -291,9 +348,9 @@ fn doc_join(v: &Join<Raw>) -> RcDoc {
         _ => return doc_display(v, "join operator"),
     };
     let constraint = match constraint {
-        JoinConstraint::On(expr) => RcDoc::concat(vec![RcDoc::text("ON "), doc_expr(&expr)]),
+        JoinConstraint::On(expr) => RcDoc::concat(vec![RcDoc::text("ON "), doc_expr(expr)]),
         JoinConstraint::Using(idents) => {
-            bracket("USING(", comma_separate(doc_display_pass, &idents), ")")
+            bracket("USING(", comma_separate(doc_display_pass, idents), ")")
         }
         _ => return doc_display(v, "join constrant"),
     };
@@ -316,7 +373,7 @@ fn doc_table_factor(v: &TableFactor<Raw>) -> RcDoc {
                 return doc_display(v, "table factor lateral");
             }
             let mut docs = vec![bracket("(", doc_query(subquery), ")")];
-            if let Some(alias) = &*alias {
+            if let Some(alias) = alias {
                 docs.push(RcDoc::text(format!("AS {}", alias)));
             }
             RcDoc::intersperse(docs, Doc::line()).nest(TAB).group()
@@ -517,7 +574,7 @@ fn doc_function(v: &Function<Raw>) -> RcDoc {
                 if v.distinct {
                     name.push_str("DISTINCT");
                 }
-                bracket(name, comma_separate(doc_expr, &args), ")")
+                bracket(name, comma_separate(doc_expr, args), ")")
             }
         }
     }
@@ -575,7 +632,9 @@ mod tests {
                 if n > (stmt.len() + 5) {
                     break;
                 }
-                break;
+                if true {
+                    break;
+                }
             }
         }
     }
