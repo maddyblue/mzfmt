@@ -1855,6 +1855,7 @@ dependencies = [
 [[package]]
 name = "mz-ore"
 version = "0.1.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=75995f02c256eee0fbae6d7cba799d7e9f861589#75995f02c256eee0fbae6d7cba799d7e9f861589"
 dependencies = [
  "either",
  "once_cell",
@@ -1866,6 +1867,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=75995f02c256eee0fbae6d7cba799d7e9f861589#75995f02c256eee0fbae6d7cba799d7e9f861589"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -1883,6 +1885,7 @@ dependencies = [
 [[package]]
 name = "mz-walkabout"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=75995f02c256eee0fbae6d7cba799d7e9f861589#75995f02c256eee0fbae6d7cba799d7e9f861589"
 dependencies = [
  "anyhow",
  "itertools",
@@ -3880,6 +3883,7 @@ dependencies = [
 [[package]]
 name = "workspace-hack"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=75995f02c256eee0fbae6d7cba799d7e9f861589#75995f02c256eee0fbae6d7cba799d7e9f861589"
 dependencies = [
  "anyhow",
  "aws-credential-types",
