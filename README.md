@@ -4,11 +4,7 @@ SQL pretty printer for Materialize
 
 ## command line
 
-To install to `.cargo/bin`, clone this repo and:
-
-`cargo install --path .`
-
-Then pipe a SQL file to `mzfmt`.
+A [binary](https://github.com/mjibson/mzfmt/releases/latest) is available local execution.
 
 ## web
 
