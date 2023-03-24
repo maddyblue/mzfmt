@@ -9,7 +9,7 @@ license-file = "LICENSE.txt"
 [dependencies]
 clap = { version = "2" }
 pretty = "0.11.3"
-mz-sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", rev = "75995f02c256eee0fbae6d7cba799d7e9f861589", default-features = false }
+mz-sql-parser = { path = "materialize/src/sql-parser", default-features = false }
 structopt = { version = "0.3", default-features = false }
 
 [dev-dependencies]
