@@ -1,0 +1,4 @@
+[submodule "vscode/webpack"]
+	path = vscode/webpack
+	url = https://github.com/SonOfLilit/webpack
+	branch = enable-wasm-loader

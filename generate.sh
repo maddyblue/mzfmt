@@ -1,5 +1,7 @@
 #!/bin/sh
 
-RUSTFLAGS='' wasm-pack build --target web --release --out-dir ../docs web
+export RUSTFLAGS=''
+wasm-pack build --target web --release --out-dir ../docs web
+wasm-pack build web
 
 # python3 -m http.server
