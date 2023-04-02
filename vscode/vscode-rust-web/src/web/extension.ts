@@ -15,8 +15,9 @@ function prettySQL(text: string): string {
   if (!impl) {
     return text;
   }
-  const width = vscode.workspace.getConfiguration().get('editor.wordWrapColumn', 80)
-  return impl.instance.pretty_str(text, width);
+  const width = vscode.workspace.getConfiguration().get('editor.wordWrapColumn', 80);
+  console.debug(impl.instance);
+  return impl.instance.pretty_str_simple(text, width);
 }
 
 // this method is called when your extension is activated
@@ -32,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
   let disposable;
 
   disposable = vscode.commands.registerCommand(
-    "vscode-mzfmt-web.formatSQL",
+    "mzfmt.formatSQL",
     () => {
       var editor = vscode.window.activeTextEditor;
       if (!editor) {
