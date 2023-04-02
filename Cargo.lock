@@ -252,6 +252,7 @@ checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
 [[package]]
 name = "mz-ore"
 version = "0.1.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.48.3#e5988b9c4ecf76a125544d03c898f1d1b6d3605c"
 dependencies = [
  "either",
  "once_cell",
@@ -263,6 +264,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.48.3#e5988b9c4ecf76a125544d03c898f1d1b6d3605c"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -280,6 +282,7 @@ dependencies = [
 [[package]]
 name = "mz-walkabout"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.48.3#e5988b9c4ecf76a125544d03c898f1d1b6d3605c"
 dependencies = [
  "anyhow",
  "itertools",

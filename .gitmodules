@@ -1,4 +1,0 @@
-[submodule "materialize"]
-	path = materialize
-	url = https://github.com/mjibson/materialize.git
-	branch = walkabout-workspace
