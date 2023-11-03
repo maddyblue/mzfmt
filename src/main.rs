@@ -1,9 +1,8 @@
 use std::io::{self, Read};
 
 use clap::AppSettings;
+use mz_sql_pretty::pretty_str;
 use structopt::StructOpt;
-
-use mzfmt::pretty_str;
 
 /// Reads SQL from stdin, formats at specified width, and outputs to stdout.
 #[derive(StructOpt)]

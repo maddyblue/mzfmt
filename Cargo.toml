@@ -1,6 +1,6 @@
 [package]
 name = "mzfmt"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
 description = "SQL pretty printer for the Materialize dialect"
 repository = "https://github.com/mjibson/mzfmt"
@@ -8,8 +8,8 @@ license-file = "LICENSE.txt"
 
 [dependencies]
 clap = { version = "2" }
-pretty = "0.11.3"
-mz-sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", tag = "v0.48.3", default-features = false }
+#mz-sql-parser = { git = "https://github.com/MaterializeInc/materialize.git", tag = "v0.48.3", default-features = false }
+mz-sql-pretty = { path = "/home/mjibson/materialize/src/sql-pretty", default-features = false }
 structopt = { version = "0.3", default-features = false }
 
 [dev-dependencies]

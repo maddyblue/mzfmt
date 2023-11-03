@@ -2,14 +2,14 @@
 name = "web"
 version = "0.1.0"
 authors = ["Matt Jibson <matt.jibson@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-mzfmt = { path = ".." }
-wasm-bindgen = "0.2.83"
+mz-sql-pretty = { path = "/home/mjibson/materialize/src/sql-pretty", default-features = false }
+wasm-bindgen = "0.2.88"
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
