@@ -283,6 +283,7 @@ checksum = "f665ee40bc4a3c5590afb1e9677db74a508659dfd71e126420da8274909a0167"
 [[package]]
 name = "mz-ore"
 version = "0.1.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=8b13a57d363057aa7b20b1f7c6abd930dc4cd37c#8b13a57d363057aa7b20b1f7c6abd930dc4cd37c"
 dependencies = [
  "anyhow",
  "ctor",
@@ -298,6 +299,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-lexer"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=8b13a57d363057aa7b20b1f7c6abd930dc4cd37c#8b13a57d363057aa7b20b1f7c6abd930dc4cd37c"
 dependencies = [
  "anyhow",
  "mz-ore",
@@ -310,6 +312,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=8b13a57d363057aa7b20b1f7c6abd930dc4cd37c#8b13a57d363057aa7b20b1f7c6abd930dc4cd37c"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -327,6 +330,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-pretty"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=8b13a57d363057aa7b20b1f7c6abd930dc4cd37c#8b13a57d363057aa7b20b1f7c6abd930dc4cd37c"
 dependencies = [
  "mz-sql-parser",
  "pretty",
@@ -335,6 +339,7 @@ dependencies = [
 [[package]]
 name = "mz-test-macro"
 version = "0.1.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=8b13a57d363057aa7b20b1f7c6abd930dc4cd37c#8b13a57d363057aa7b20b1f7c6abd930dc4cd37c"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -344,6 +349,7 @@ dependencies = [
 [[package]]
 name = "mz-walkabout"
 version = "0.0.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=8b13a57d363057aa7b20b1f7c6abd930dc4cd37c#8b13a57d363057aa7b20b1f7c6abd930dc4cd37c"
 dependencies = [
  "anyhow",
  "itertools",
