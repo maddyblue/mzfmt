@@ -283,7 +283,7 @@ checksum = "f665ee40bc4a3c5590afb1e9677db74a508659dfd71e126420da8274909a0167"
 [[package]]
 name = "mz-ore"
 version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=bccfacbaaab97ccfb6d3d3fee4185742f981027d#bccfacbaaab97ccfb6d3d3fee4185742f981027d"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
 dependencies = [
  "anyhow",
  "ctor",
@@ -299,7 +299,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-lexer"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=bccfacbaaab97ccfb6d3d3fee4185742f981027d#bccfacbaaab97ccfb6d3d3fee4185742f981027d"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
 dependencies = [
  "anyhow",
  "mz-ore",
@@ -312,7 +312,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=bccfacbaaab97ccfb6d3d3fee4185742f981027d#bccfacbaaab97ccfb6d3d3fee4185742f981027d"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -323,6 +323,7 @@ dependencies = [
  "mz-walkabout",
  "phf",
  "serde",
+ "thiserror",
  "tracing",
  "uncased",
 ]
@@ -330,7 +331,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-pretty"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=bccfacbaaab97ccfb6d3d3fee4185742f981027d#bccfacbaaab97ccfb6d3d3fee4185742f981027d"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
 dependencies = [
  "mz-sql-parser",
  "pretty",
@@ -339,7 +340,7 @@ dependencies = [
 [[package]]
 name = "mz-test-macro"
 version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=bccfacbaaab97ccfb6d3d3fee4185742f981027d#bccfacbaaab97ccfb6d3d3fee4185742f981027d"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -349,7 +350,7 @@ dependencies = [
 [[package]]
 name = "mz-walkabout"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=bccfacbaaab97ccfb6d3d3fee4185742f981027d#bccfacbaaab97ccfb6d3d3fee4185742f981027d"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
 dependencies = [
  "anyhow",
  "itertools",
@@ -705,6 +706,26 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d326610f408c7a4eb6f51c37c330e496b08506c9457c9d34287ecc38809fb060"
 dependencies = [
  "unicode-width",
+]
+
+[[package]]
+name = "thiserror"
+version = "1.0.50"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9a7210f5c9a7156bb50aa36aed4c95afb51df0df00713949448cf9e97d382d2"
+dependencies = [
+ "thiserror-impl",
+]
+
+[[package]]
+name = "thiserror-impl"
+version = "1.0.50"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "266b2e40bc00e5a6c09c3584011e08b06f123c00362c92b975ba9843aaaa14b8"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.38",
 ]
 
 [[package]]
