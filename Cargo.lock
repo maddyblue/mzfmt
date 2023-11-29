@@ -283,7 +283,7 @@ checksum = "f665ee40bc4a3c5590afb1e9677db74a508659dfd71e126420da8274909a0167"
 [[package]]
 name = "mz-ore"
 version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=ce90d685a0925aaec7a1984ba61bafa620959cdc#ce90d685a0925aaec7a1984ba61bafa620959cdc"
 dependencies = [
  "anyhow",
  "ctor",
@@ -299,7 +299,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-lexer"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=ce90d685a0925aaec7a1984ba61bafa620959cdc#ce90d685a0925aaec7a1984ba61bafa620959cdc"
 dependencies = [
  "anyhow",
  "mz-ore",
@@ -312,7 +312,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=ce90d685a0925aaec7a1984ba61bafa620959cdc#ce90d685a0925aaec7a1984ba61bafa620959cdc"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -331,16 +331,17 @@ dependencies = [
 [[package]]
 name = "mz-sql-pretty"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=ce90d685a0925aaec7a1984ba61bafa620959cdc#ce90d685a0925aaec7a1984ba61bafa620959cdc"
 dependencies = [
  "mz-sql-parser",
  "pretty",
+ "thiserror",
 ]
 
 [[package]]
 name = "mz-test-macro"
 version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=ce90d685a0925aaec7a1984ba61bafa620959cdc#ce90d685a0925aaec7a1984ba61bafa620959cdc"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -350,7 +351,7 @@ dependencies = [
 [[package]]
 name = "mz-walkabout"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?rev=69624bdb91f5da76ca3a8e9ba07e0e712f172871#69624bdb91f5da76ca3a8e9ba07e0e712f172871"
+source = "git+https://github.com/MaterializeInc/materialize.git?rev=ce90d685a0925aaec7a1984ba61bafa620959cdc#ce90d685a0925aaec7a1984ba61bafa620959cdc"
 dependencies = [
  "anyhow",
  "itertools",

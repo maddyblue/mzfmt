@@ -8,7 +8,7 @@ license-file = "LICENSE.txt"
 
 [dependencies]
 clap = { version = "2" }
-mz-sql-pretty = { git = "https://github.com/MaterializeInc/materialize.git", rev = "69624bdb91f5da76ca3a8e9ba07e0e712f172871", default-features = false }
+mz-sql-pretty = { git = "https://github.com/MaterializeInc/materialize.git", rev = "ce90d685a0925aaec7a1984ba61bafa620959cdc", default-features = false }
 structopt = { version = "0.3", default-features = false }
 
 [dev-dependencies]
