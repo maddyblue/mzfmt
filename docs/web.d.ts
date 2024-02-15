@@ -6,19 +6,12 @@
 * @returns {string}
 */
 export function pretty_str(str: string, width: number): string;
-/**
-* @param {string} s
-* @param {number} width
-* @returns {string}
-*/
-export function pretty_str_simple(s: string, width: number): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly pretty_str: (a: number, b: number, c: number, d: number) => void;
-  readonly pretty_str_simple: (a: number, b: number, c: number, d: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
