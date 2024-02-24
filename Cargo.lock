@@ -283,7 +283,7 @@ checksum = "f665ee40bc4a3c5590afb1e9677db74a508659dfd71e126420da8274909a0167"
 [[package]]
 name = "mz-ore"
 version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.87.2#f79ca55f07854fa0f1c0f7bdba8001b615c822e6"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
 dependencies = [
  "anyhow",
  "ctor",
@@ -301,7 +301,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-lexer"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.87.2#f79ca55f07854fa0f1c0f7bdba8001b615c822e6"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
 dependencies = [
  "anyhow",
  "mz-ore",
@@ -314,7 +314,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.87.2#f79ca55f07854fa0f1c0f7bdba8001b615c822e6"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -333,7 +333,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-pretty"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.87.2#f79ca55f07854fa0f1c0f7bdba8001b615c822e6"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
 dependencies = [
  "mz-sql-parser",
  "pretty",
@@ -343,7 +343,7 @@ dependencies = [
 [[package]]
 name = "mz-test-macro"
 version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.87.2#f79ca55f07854fa0f1c0f7bdba8001b615c822e6"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -353,7 +353,7 @@ dependencies = [
 [[package]]
 name = "mz-walkabout"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.87.2#f79ca55f07854fa0f1c0f7bdba8001b615c822e6"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
 dependencies = [
  "anyhow",
  "itertools",
@@ -364,7 +364,7 @@ dependencies = [
 
 [[package]]
 name = "mzfmt"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "clap",
  "datadriven",

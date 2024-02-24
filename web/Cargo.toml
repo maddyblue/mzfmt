@@ -8,7 +8,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-mz-sql-pretty = { git = "https://github.com/MaterializeInc/materialize.git", tag = "v0.87.2", default-features = false }
+mz-sql-pretty = { git = "https://github.com/MaterializeInc/materialize.git", tag = "v0.89.0", default-features = false }
 wasm-bindgen = "0.2.88"
 
 [profile.release]
