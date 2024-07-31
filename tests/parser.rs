@@ -12,7 +12,7 @@ fn parser() {
     use mz_sql_parser::parser::parse_statements;
 
     walk(
-        "/home/mjibson/materialize/src/sql-parser/tests/testdata",
+        "/home/maddyblue/materialize/src/sql-parser/tests/testdata",
         |f| {
             f.run(|tc| -> String {
                 match tc.directive.as_str() {

@@ -9,8 +9,8 @@
   "categories": [
     "Other"
   ],
-  "repository": "github:mjibson/mzfmt",
-  "publisher": "mjibson",
+  "repository": "github:maddyblue/mzfmt",
+  "publisher": "maddyblue",
   "browser": "./dist/web/extension.js",
   "activationEvents": [
     "onCommand:mzfmt.formatSQL",

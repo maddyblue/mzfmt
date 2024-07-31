@@ -4,7 +4,7 @@ SQL pretty printer for Materialize
 
 ## command line
 
-[Binaries](https://github.com/mjibson/mzfmt/releases/latest) are available for local execution.
+[Binaries](https://github.com/maddyblue/mzfmt/releases/latest) are available for local execution.
 
 ## web
 

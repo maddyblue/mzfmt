@@ -3,7 +3,7 @@ name = "mzfmt"
 version = "0.2.4"
 edition = "2021"
 description = "SQL pretty printer for the Materialize dialect"
-repository = "https://github.com/mjibson/mzfmt"
+repository = "https://github.com/maddyblue/mzfmt"
 license-file = "LICENSE.txt"
 
 [dependencies]
