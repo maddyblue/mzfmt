@@ -1,5 +1,6 @@
 {
   "name": "web",
+  "type": "module",
   "collaborators": [
     "Maddy Blue <github@maddy.blue>"
   ],
@@ -9,7 +10,7 @@
     "web.js",
     "web.d.ts"
   ],
-  "module": "web.js",
+  "main": "web.js",
   "types": "web.d.ts",
   "sideEffects": [
     "./snippets/*"

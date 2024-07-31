@@ -109,6 +109,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "derivative"
+version = "2.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fcc3dd5e9e9c0b295d6e1e4d811fb6f157d5ffd784b8d202fc62eac8035a770b"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
 name = "either"
 version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -283,12 +294,13 @@ checksum = "f665ee40bc4a3c5590afb1e9677db74a508659dfd71e126420da8274909a0167"
 [[package]]
 name = "mz-ore"
 version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.110.0#509a7c110aa695b9a601266f29c5ace1ade591c6"
 dependencies = [
  "anyhow",
  "ctor",
+ "derivative",
  "either",
- "mz-test-macro",
+ "mz-ore-proc",
  "num",
  "once_cell",
  "paste",
@@ -299,9 +311,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "mz-ore-proc"
+version = "0.1.0"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.110.0#509a7c110aa695b9a601266f29c5ace1ade591c6"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
 name = "mz-sql-lexer"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.110.0#509a7c110aa695b9a601266f29c5ace1ade591c6"
 dependencies = [
  "anyhow",
  "mz-ore",
@@ -314,7 +336,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-parser"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.110.0#509a7c110aa695b9a601266f29c5ace1ade591c6"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -325,6 +347,7 @@ dependencies = [
  "mz-walkabout",
  "phf",
  "serde",
+ "smallvec",
  "thiserror",
  "tracing",
  "uncased",
@@ -333,7 +356,7 @@ dependencies = [
 [[package]]
 name = "mz-sql-pretty"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.110.0#509a7c110aa695b9a601266f29c5ace1ade591c6"
 dependencies = [
  "mz-sql-parser",
  "pretty",
@@ -341,19 +364,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "mz-test-macro"
-version = "0.1.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
 name = "mz-walkabout"
 version = "0.0.0"
-source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.89.0#cffa09de53d5c2aa5dc406e5aee8c8ff27220543"
+source = "git+https://github.com/MaterializeInc/materialize.git?tag=v0.110.0#509a7c110aa695b9a601266f29c5ace1ade591c6"
 dependencies = [
  "anyhow",
  "itertools",
@@ -364,7 +377,7 @@ dependencies = [
 
 [[package]]
 name = "mzfmt"
-version = "0.2.4"
+version = "0.2.5"
 dependencies = [
  "clap",
  "datadriven",
@@ -711,6 +724,12 @@ checksum = "6528351c9bc8ab22353f9d776db39a20288e8d6c37ef8cfe3317cf875eecfc2d"
 dependencies = [
  "autocfg",
 ]
+
+[[package]]
+name = "smallvec"
+version = "1.13.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
 
 [[package]]
 name = "stacker"
